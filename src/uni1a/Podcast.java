@@ -1,12 +1,13 @@
 package uni1a;
+import data.CSVConvertible;
 
-public class Podcast extends ContenidoAudiovisual {
+public class Podcast extends ContenidoAudiovisual implements CSVConvertible {
+
     private String anfitrion;
     private String plataforma;
     private int cantidadEpisodios;
-    private Investigador invitado; // Asociación con la clase Investigador
+    private Investigador invitado;
 
-    // Constructor
     public Podcast(String titulo, int duracionEnMinutos, String genero, String anfitrion, String plataforma, int cantidadEpisodios) {
         super(titulo, duracionEnMinutos, genero);
         this.anfitrion = anfitrion;
@@ -14,7 +15,6 @@ public class Podcast extends ContenidoAudiovisual {
         this.cantidadEpisodios = cantidadEpisodios;
     }
 
-    // Getters y Setters
     public String getAnfitrion() {
         return anfitrion;
     }
@@ -47,7 +47,6 @@ public class Podcast extends ContenidoAudiovisual {
         this.invitado = invitado;
     }
 
-    // Método para mostrar detalles del Podcast
     public void mostrarDetalles() {
         System.out.println("Detalles del Podcast:");
         System.out.println("Título: " + getTitulo());
@@ -63,4 +62,25 @@ public class Podcast extends ContenidoAudiovisual {
         }
         System.out.println();
     }
+    public String toCSV() {
+        return getTitulo() + ";" +
+               getDuracionEnMinutos() + ";" +
+               getGenero() + ";" +
+               anfitrion + ";" +
+               plataforma + ";" +
+               cantidadEpisodios;
+    }
+
+    public static Podcast fromCSV(String linea) {
+        String[] p = linea.split(";");
+        return new Podcast(
+            p[0],
+            Integer.parseInt(p[1]),
+            p[2],
+            p[3],
+            p[4],
+            Integer.parseInt(p[5])
+        );
+    }
+
 }

@@ -1,16 +1,16 @@
 package uni1a;
+import data.CSVConvertible;
 
-public class Investigador {
+public class Investigador implements CSVConvertible {
+
     private String nombre;
     private String especialidad;
 
-    // Constructor
     public Investigador(String nombre, String especialidad) {
         this.nombre = nombre;
         this.especialidad = especialidad;
     }
 
-    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
@@ -27,8 +27,20 @@ public class Investigador {
         this.especialidad = especialidad;
     }
 
-    // Método para mostrar información del investigador
     public void mostrarInformacion() {
         System.out.println("Investigador: " + nombre + " - Especialidad: " + especialidad);
     }
+
+    public String toCSV() {
+        return this.nombre + ";" + this.especialidad;
+    }
+
+    public static Investigador fromCSV(String linea) {
+        String[] partes = linea.split(";");
+        String nombre = partes[0];
+        String especialidad = partes[1];
+
+        return new Investigador(nombre, especialidad);
+    }
+
 }

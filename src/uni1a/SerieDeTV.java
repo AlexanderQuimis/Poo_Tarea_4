@@ -1,10 +1,8 @@
-/**
- * Class SerieDeTV
- */
 package uni1a;
+import data.CSVConvertible;
 
-// Subclase SerieDeTV que extiende de ContenidoAudiovisual
-public class SerieDeTV extends ContenidoAudiovisual {
+public class SerieDeTV extends ContenidoAudiovisual implements CSVConvertible {
+
     private int temporadas;
 
     public SerieDeTV(String titulo, int duracionEnMinutos, String genero, int temporadas) {
@@ -34,5 +32,25 @@ public class SerieDeTV extends ContenidoAudiovisual {
 	public void agregarTemporada(Temporada temporada1) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public String toCSV() {
+	    return getTitulo() + ";" 
+	         + getDuracionEnMinutos() + ";" 
+	         + getGenero() + ";" 
+	         + this.temporadas;
+	}
+
+	public static SerieDeTV fromCSV(String linea) {
+	    String[] p = linea.split(";");
+
+	    SerieDeTV serie = new SerieDeTV(
+	            p[0],                       
+	            Integer.parseInt(p[1]),     
+	            p[2],                        
+	            Integer.parseInt(p[3])       
+	    );
+
+	    return serie;
 	}
 }

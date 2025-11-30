@@ -1,12 +1,12 @@
 package uni1a;
+import data.CSVConvertible;
+public class Webinar extends ContenidoAudiovisual implements CSVConvertible {
 
-public class Webinar extends ContenidoAudiovisual {
     private String tema;
     private String ponente;
     private String fecha;
-    private Actor presentador; // Asociación con la clase Actor
+    private Actor presentador; 
 
-    // Constructor
     public Webinar(String titulo, int duracionEnMinutos, String genero, String tema, String ponente, String fecha) {
         super(titulo, duracionEnMinutos, genero);
         this.tema = tema;
@@ -14,7 +14,6 @@ public class Webinar extends ContenidoAudiovisual {
         this.fecha = fecha;
     }
 
-    // Getters y Setters
     public String getTema() {
         return tema;
     }
@@ -47,7 +46,6 @@ public class Webinar extends ContenidoAudiovisual {
         this.presentador = presentador;
     }
 
-    // Método para mostrar detalles del Webinar
     public void mostrarDetalles() {
         System.out.println("Detalles del Webinar:");
         System.out.println("Título: " + getTitulo());
@@ -62,6 +60,26 @@ public class Webinar extends ContenidoAudiovisual {
             presentador.mostrarInformacion();
         }
         System.out.println();
+    }
+    public String toCSV() {
+        return getTitulo() + ";" +
+               getDuracionEnMinutos() + ";" +
+               getGenero() + ";" +
+               this.tema + ";" +
+               this.ponente + ";" +
+               this.fecha;
+    }
+
+    public static Webinar fromCSV(String linea) {
+        String[] p = linea.split(";");
+        return new Webinar(
+            p[0],               // titulo
+            Integer.parseInt(p[1]),
+            p[2],               // genero
+            p[3],               // tema
+            p[4],               // ponente
+            p[5]                // fecha
+        );
     }
 }
 

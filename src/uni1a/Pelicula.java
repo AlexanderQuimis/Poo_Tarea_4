@@ -1,11 +1,10 @@
-/**
- * Class Pelicula
- */
 package uni1a;
 import java.util.ArrayList;
 import java.util.List;
-// Subclase Pelicula que extiende de ContenidoAudiovisual
-public class Pelicula extends ContenidoAudiovisual {
+import data.CSVConvertible;
+
+public class Pelicula extends ContenidoAudiovisual implements CSVConvertible {
+
     private String estudio;
     private List<Actor> actores = new ArrayList<>();
 
@@ -37,6 +36,7 @@ public class Pelicula extends ContenidoAudiovisual {
         }
     }
 
+
     @Override
     public void mostrarDetalles() {
         System.out.println("Detalles de la película:");
@@ -47,5 +47,21 @@ public class Pelicula extends ContenidoAudiovisual {
         System.out.println("Estudio: " + estudio);
         mostrarActores();
         System.out.println();
+    }
+
+    public String toCSV() {
+        return getTitulo() + ";" 
+             + getDuracionEnMinutos() + ";" 
+             + getGenero() + ";" 
+             + this.estudio;
+    }
+
+    public static Pelicula fromCSV(String linea) {
+        String[] partes = linea.split(";");
+        String titulo = partes[0];
+        int duracion = Integer.parseInt(partes[1]);
+        String genero = partes[2];
+        String estudio = partes[3];
+        return new Pelicula(titulo, duracion, genero, estudio);
     }
 }
